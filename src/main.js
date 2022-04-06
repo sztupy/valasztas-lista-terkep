@@ -1,6 +1,8 @@
 const DATA_TYPES = {
-    "result_old": "2018-as eredmény",
-    "result_new": "2022-es eredmény",
+    "result_old": "2018-as eredmény (fő)",
+    "result_old_pp": "2018-as eredmény (%)",
+    "result_new": "2022-es eredmény (fő)",
+    "result_new_pp": "2022-es eredmény (%)",
     "vote_gain": "szavazóbázis különbség",
     "pp_increase": "százalékpontos különbség"
   }
@@ -76,6 +78,7 @@ const DATA_TYPES = {
     if (scaling) {
       toValue = toValue / toTotal * fromTotal;
       toValueMinus = toValueMinus / toTotal * fromTotal;
+      toTotal = fromTotal;
     }
 
     var returnValue1 = 0;
@@ -86,9 +89,17 @@ const DATA_TYPES = {
         returnValue1 = fromValue;
         returnValue2 = fromValueMinus;
         break;
+      case "result_old_pp":
+        returnValue1 = (fromValue / fromTotal) * 100;
+        returnValue2 = (fromValueMinus / fromTotal) * 100;
+        break;
       case "result_new":
         returnValue1 = toValue;
         returnValue2 = toValueMinus;
+        break;
+      case "result_new_pp":
+        returnValue1 = (toValue / toTotal) * 100;
+        returnValue2 = (toValueMinus / toTotal) * 100;
         break;
       case "vote_gain":
         returnValue1 = toValue - fromValue;
@@ -101,16 +112,24 @@ const DATA_TYPES = {
     }
 
     return [ returnValue1 - returnValue2, {
-      party1: {
+      all: {
+        old: fromTotal,
+        new: toTotal,
+      },
+      party_1: {
         old: fromValue,
         new: toValue,
+        old_pp: fromValue / fromTotal,
+        new_pp: toValue / toTotal,
         gain: toValue / fromValue,
         loss: fromValue / toValue,
         win: toValue - fromValue
       },
-      party2: {
+      party_2: {
         old: fromValueMinus,
         new: toValueMinus,
+        old_pp: fromValueMinus / fromTotal,
+        new_pp: toValueMinus / toTotal,
         gain: toValueMinus / fromValueMinus,
         loss: fromValueMinus / toValueMinus,
         win: toValueMinus - fromValueMinus
@@ -197,20 +216,22 @@ const DATA_TYPES = {
           case "result_new":
             result = 'Különbség: ' + difference + ' fő';
             break;
+          case "result_old_pp":
+            result = 'Különbség: ' + difference.toFixed(3) + 'pp';
+            break;
+          case "result_new_pp":
+            result = 'Különbség: ' + difference.toFixed(3) + 'pp';
+            break;
           case "vote_gain":
             result = 'Különbség: ' + difference + ' fő';
             break;
           case "pp_increase":
-            if (toDataMinus.length == 0 || fromDataMinus.length == 0) {
-              result = 'Eredmény: ' + difference.toFixed(3) + '%';
-            } else {
-              result = 'Különbség: ' + difference.toFixed(3) + 'pp';
-            }
+            result = 'Különbség: ' + difference.toFixed(3) + 'pp';
             break;
         }
 
         if ((toDataMinus.length == 0 || fromDataMinus.length == 0) && dataType != "vote_gain") {
-          result = result.replace("Különbség", "Eredmény");
+          result = result.replace("Különbség", "Eredmény").replace('pp','%');
         };
 
         var evkText = '';
@@ -221,7 +242,7 @@ const DATA_TYPES = {
 
         layer.bindPopup('<b>' + feature.properties.MEGY_NEV + evkText +
                     '</b><br/>' + result + '<br/><pre>' + JSON.stringify(log, (key, value) => {
-                      if (key == 'gain' || key == 'loss') {
+                      if (key == 'gain' || key == 'loss' || key == 'old_pp' || key == 'new_pp') {
                         return (value*100).toFixed(3) + '%';
                       }
                       return value;
@@ -273,7 +294,11 @@ const DATA_TYPES = {
       if (event.target.id == "comparison_use_scaling") {
         scaling = document.getElementById("comparison_use_scaling").checked;
       }
-
+      if (event.target.id == "comparison_scale_reset") {
+        scale = 0;
+        document.getElementById("comparison_scale_range").value = scale;
+        document.getElementById("comparison_scale_text").value = scale;
+      }
       if (event.target.id == "county_view_button") {
         countyMode = document.getElementById("county_view_button").checked;
       }
@@ -333,6 +358,8 @@ const DATA_TYPES = {
     for (var i = 0; i< inputs.length; i++) {
       inputs[i].addEventListener("change", loadKor, false);
     }
+
+    document.getElementById("comparison_scale_reset").addEventListener("click", loadKor, false);
   }
 
   setupSettings();
