@@ -21,7 +21,7 @@ const DATA_TYPES = {
     "MI HAZÁNK"
   ]
 
-  var dataType = "pp_increase";
+  var dataType = "result_new_pp";
   var scaling = false;
   var countyMode = false;
 
