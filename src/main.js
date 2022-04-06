@@ -35,9 +35,9 @@ const DATA_TYPES = {
   var fromDataMinus = ["LMP", "MSZP", "MOMENTUM", "JOBBIK", "DK", "EGYUTT"];
   var toDataMinus = ["ÖSSZEFOGÁS", "MI HAZÁNK"];
 
-  var tiles = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  var tiles = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
+      attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
     }),
     latlng = L.latLng(47.19801, 19.3);
 
