@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Honnan Jöttél</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="src/screen.css" />>
+  <script src="src/megye.js" charset="utf-8"></script>
+  <script src="src/megye_lakos.js" charset="utf-8"></script>
+  <script src="src/szavazokor.js" charset="utf-8"></script>
+  <script src="src/lista_2018.js" charset="utf-8"></script>
+  <script src="src/lista_2022.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-fork-ribbon-css/0.2.2/gh-fork-ribbon.min.css" />
+</head>
+<body>
+  <div id="hun"></div>
+  <div id="county"></div>
+  <div id="settings">
+    <div id="settings_button">🔧</div>
+    <div id="settings_content">
+      <form id="settings_form">
+        <div class="settings_group">
+          <div class="settings_label">Kiválasztott párt</div>
+          <div class="settings_values">
+            <div class="settings_inputs" id="old_party1"></div>
+            <div class="settings_inputs" id="new_party1"></div>
+          </div>
+        </div>
+        <div class="settings_group">
+          <div class="settings_label">Összehasonlítandó párt</div>
+          <div class="settings_values">
+            <div class="settings_inputs" id="old_party2"></div>
+            <div class="settings_inputs" id="new_party2"></div>
+          </div>
+        </div>
+        <div class="settings_group">
+          <div class="settings_label">Összehasonlítás módja</div>
+          <div class="settings_values">
+            <div class="settings_inputs" id="comparison_type">
+              <input type="checkbox" id="comparison_use_scaling" autocomplete="off"> Részvétel arányosítása
+              <hr>
+            </div>
+          </div>
+        </div>
+        <div class="settings_group">
+          <div class="settings_label">Szinezési adatok</div>
+          <div class="settings_values">
+            <div class="settings_inputs" id="comparison_scale">
+              <input type="number" value="-10000" disabled id="comparison_scale_min">
+              <input type="range" min="-10000" max="10000" value="0" step="1" id="comparison_scale_range">
+              <input type="number" value="10000" disabled id="comparison_scale_max">
+              <input type="number" min="-10000" max="10000" value="0" id="comparison_scale_text">
+            </div>
+          </div>
+        </div>
+        <div class="settings_group">
+          <div class="settings_label">Nézet</div>
+          <div class="settings_values">
+            <div class="settings_inputs" id="county_view">
+              <input type="checkbox" value="county" id="county_view_button" autocomplete="off"> Megyei nézet
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <a class="github-fork-ribbon" href="https://github.com/sztupy/ogy-lista-2022" data-ribbon="Info / GitHub" title="Info / GitHub">Info / GitHub</a>
+  <script src="src/main.js" charset="utf-8"></script>
+
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-9404141-8', 'auto');
+    ga('send', 'pageview');
+  </script>
+</body>
+</html>
