@@ -264,13 +264,50 @@ const DATA_TYPES = {
           evkText = ' (' + evk + ')';
         }
 
+        var debuginfo = '';
+
+        if (scaling) {
+          debuginfo += "<br><b>Figyelem!</b> A 2022-es számadatok arányosítva vannak!<br><br>";
+        }
+
+        if (log.all.old) debuginfo += "2018-ban érvényesen szavaztak: " + log.all.old + " fő<br/>";
+        if (log.all.new) debuginfo += "2022-ben érvényesen szavaztak: " + log.all.new + " fő" + (scaling?" <b>Arányosítva</b>":"") + "<br/>";
+
+        if (log.party_1.old || log.party_1.new) {
+          debuginfo += "<br><b>"
+          if (log.party_1.old) debuginfo += "2018: " + fromDataPlus.join(", ") + '<br/>';
+          if (log.party_1.new) debuginfo += "2022: " + toDataPlus.join(", ") + '<br/>';
+          debuginfo += "</b>";
+
+          if (log.party_1.old) debuginfo += "2018-as szavazatszám: " + log.party_1.old + " fő (<b>" + (log.party_1.old_pp*100).toFixed(3) + "%</b>)<br />";
+          if (log.party_1.new) debuginfo += "2022-es szavazatszám: " + log.party_1.new.toFixed(0) + " fő (<b>" + (log.party_1.new_pp*100).toFixed(3) + "</b>%)<br/>";
+
+          if (log.party_1.old && log.party_1.new) {
+            debuginfo += "2018-2022 különbség: " + (log.party_1.gain*100-100).toFixed(3) + "%<br />";
+            debuginfo += "2022-2018 különbség: " + (log.party_1.loss*100-100).toFixed(3) + "%<br />";
+            debuginfo += "Szavazóbázis változása: " + log.party_1.win.toFixed(0) + " fő<br />";;
+          }
+        }
+
+        if (log.party_2.old || log.party_2.new) {
+          debuginfo += "<br><b>"
+          if (log.party_2.old) debuginfo += "2018: " + fromDataMinus.join(", ") + '<br/>';
+          if (log.party_2.new) debuginfo += "2022: " + toDataMinus.join(", ") + '<br/>';
+          debuginfo += "</b>";
+
+          if (log.party_2.old) debuginfo += "2018-as szavazatszám: " + log.party_2.old + " fő (" + (log.party_2.old_pp*100).toFixed(3) + "%)<br />";
+          if (log.party_2.old) debuginfo += "2022-es szavazatszám: " + log.party_2.new.toFixed(0) + " fő (" + (log.party_2.new_pp*100).toFixed(3) + "%)<br/>";
+
+          if (log.party_2.old && log.party_2.new) {
+            debuginfo += "2018-2022 különbség: " + (log.party_2.gain*100-100).toFixed(3) + "%<br />";
+            debuginfo += "2022-2018 különbség: " + (log.party_2.loss*100-100).toFixed(3) + "%<br />";
+
+            debuginfo += "Szavazóbázis változása: " + log.party_2.win.toFixed(0) + " fő<br />";
+          }
+        }
+
         layer.bindPopup('<b>' + feature.properties.MEGY_NEV + evkText +
-                    '</b><br/>' + result + '<br/><pre>' + JSON.stringify(log, (key, value) => {
-                      if (key == 'gain' || key == 'loss' || key == 'old_pp' || key == 'new_pp') {
-                        return (value*100).toFixed(3) + '%';
-                      }
-                      return value;
-                    }, 2) + '</pre>') ;
+                    '</b><br/>' + result + '<br/>' + debuginfo);
         layer.bindTooltip('<b>' + feature.properties.MEGY_NEV + evkText +
                     '</b><br/>' + result);
       }
