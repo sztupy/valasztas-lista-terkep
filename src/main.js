@@ -7,6 +7,13 @@ const DATA_TYPES = {
     "pp_increase": "százalékpontos különbség"
   }
 
+  const COLOR_SCHEMES = {
+    "redgreen": "piros->narancs / sárga->zöld",
+    "blackwhite": "fekete-szürke / szürke->fehér",
+    "redblue": "piros->sárga / zöld->kék",
+    "yellowblue": "sárga->piros / lila->kék"
+  }
+
   const PARTIES_OLD = [
     "FIDESZ",
     "MKKP",
@@ -28,6 +35,7 @@ const DATA_TYPES = {
   var max = -Infinity;
   var min = Infinity;
   var scale = 0;
+  var colorScheme = "redgreen"
 
   var fromDataPlus = ["FIDESZ"];
   var toDataPlus = ["FIDESZ"];
@@ -204,9 +212,25 @@ const DATA_TYPES = {
         if (percentage < 0) percentage = 0;
         if (percentage > 1) percentage = 1;
 
-        var value = Math.round(percentage * 120);
-        var color = 'hsl(' + value + ',100%,50%)';
-        return { color: '#AAA', fillColor: color, opacity: 1, fillOpacity: 0.5, weight: 1 };
+        switch(colorScheme) {
+        case "redgreen":
+          var value = Math.round(percentage * 120);
+          var color = 'hsl(' + value + ',100%,50%)';
+          return { color: '#AAA', fillColor: color, opacity: 1, fillOpacity: 0.5, weight: 1 };
+        case "blackwhite":
+          var value = Math.round(percentage * 100);
+          var color = 'hsl(0,0%,'+ value+ '%)';
+          return { color: '#AAA', fillColor: color, opacity: 1, fillOpacity: 0.75, weight: 1 };
+        case "redblue":
+          var value = Math.round(percentage * 220);
+          var color = 'hsl(' + value + ',100%,50%)';
+          return { color: '#AAA', fillColor: color, opacity: 1, fillOpacity: 0.5, weight: 1 };
+        case "yellowblue":
+          var value = 60 - Math.round(percentage * 180);
+          var color = 'hsl(' + value + ',100%,50%)';
+          return { color: '#AAA', fillColor: color, opacity: 1, fillOpacity: 0.5, weight: 1 };
+        }
+        return {};
       } else if (type == 'click') {
         var result = "";
         switch (dataType) {
@@ -278,6 +302,12 @@ const DATA_TYPES = {
       for (var type in DATA_TYPES) {
         if (inputs[i].className == "type_" + type) {
           dataType = type;
+        }
+      }
+
+      for (var type in COLOR_SCHEMES) {
+        if (inputs[i].className == "color_" + type) {
+          colorScheme = type;
         }
       }
     }
@@ -352,6 +382,11 @@ const DATA_TYPES = {
     var typeBox = document.getElementById("comparison_type");
     for (var type in DATA_TYPES) {
       typeBox.insertAdjacentHTML('beforeend', '<input name="data_type" class="type_' + type +'" type="radio" value="' + type + '" '+(type == dataType ? 'checked' : '')+'>' + DATA_TYPES[type] + '<br/>');
+    }
+
+    var colorBox = document.getElementById("county_view");
+    for (var type in COLOR_SCHEMES) {
+      colorBox.insertAdjacentHTML('beforeend', '<input name="color_scheme" class="color_' + type +'" type="radio" value="' + type + '" '+(type == colorScheme ? 'checked' : '')+'>' + COLOR_SCHEMES[type] + '<br/>');
     }
 
     var inputs = document.querySelectorAll('#settings_form input');
