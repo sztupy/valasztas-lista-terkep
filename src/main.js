@@ -295,8 +295,8 @@ const DATA_TYPES = {
           if (log.party_2.new) debuginfo += "2022: " + toDataMinus.join(", ") + '<br/>';
           debuginfo += "</b>";
 
-          if (log.party_2.old) debuginfo += "2018-as szavazatszám: " + log.party_2.old + " fő (" + (log.party_2.old_pp*100).toFixed(3) + "%)<br />";
-          if (log.party_2.old) debuginfo += "2022-es szavazatszám: " + log.party_2.new.toFixed(0) + " fő (" + (log.party_2.new_pp*100).toFixed(3) + "%)<br/>";
+          if (log.party_2.old) debuginfo += "2018-as szavazatszám: " + log.party_2.old + " fő (<b>" + (log.party_2.old_pp*100).toFixed(3) + "%</b>)<br />";
+          if (log.party_2.old) debuginfo += "2022-es szavazatszám: " + log.party_2.new.toFixed(0) + " fő (<b>" + (log.party_2.new_pp*100).toFixed(3) + "%</b>)<br/>";
 
           if (log.party_2.old && log.party_2.new) {
             debuginfo += "2018-2022 különbség: " + (log.party_2.gain*100-100).toFixed(3) + "%<br />";
