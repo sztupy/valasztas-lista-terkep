@@ -235,22 +235,22 @@ const DATA_TYPES = {
         var result = "";
         switch (dataType) {
           case "result_old":
-            result = 'Különbség: ' + difference + ' fő';
+            result = 'Különbség: <b>' + difference + ' fő</b>';
             break;
           case "result_new":
-            result = 'Különbség: ' + difference + ' fő';
+            result = 'Különbség: <b>' + difference + ' fő</b>';
             break;
           case "result_old_pp":
-            result = 'Különbség: ' + difference.toFixed(3) + 'pp';
+            result = 'Különbség: <b>' + difference.toFixed(3) + 'pp</b>';
             break;
           case "result_new_pp":
-            result = 'Különbség: ' + difference.toFixed(3) + 'pp';
+            result = 'Különbség: <b>' + difference.toFixed(3) + 'pp</b>';
             break;
           case "vote_gain":
-            result = 'Különbség: ' + difference + ' fő';
+            result = 'Különbség: <b>' + difference + ' fő</b>';
             break;
           case "pp_increase":
-            result = 'Különbség: ' + difference.toFixed(3) + 'pp';
+            result = 'Különbség: <b>' + difference.toFixed(3) + 'pp</b>';
             break;
         }
 
@@ -307,7 +307,7 @@ const DATA_TYPES = {
         }
 
         layer.bindPopup('<b>' + feature.properties.MEGY_NEV + evkText +
-                    '</b><br/>' + result + '<br/>' + debuginfo);
+                    '</b><br/>' + result + '<br/><br/>' + debuginfo);
         layer.bindTooltip('<b>' + feature.properties.MEGY_NEV + evkText +
                     '</b><br/>' + result);
       }
