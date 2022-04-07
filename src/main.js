@@ -270,39 +270,37 @@ const DATA_TYPES = {
           debuginfo += "<br><b>Figyelem!</b> A 2022-es számadatok arányosítva vannak!<br><br>";
         }
 
-        if (log.all.old) debuginfo += "2018-ban érvényesen szavaztak: " + log.all.old + " fő<br/>";
-        if (log.all.new) debuginfo += "2022-ben érvényesen szavaztak: " + log.all.new + " fő" + (scaling?" <b>Arányosítva</b>":"") + "<br/>";
+        if (log.all.old) debuginfo += "2018-ban érvényesen szavaztak: <b>" + log.all.old + " fő</b><br/>";
+        if (log.all.new) debuginfo += "2022-ben érvényesen szavaztak: <b>" + log.all.new + " fő</b>" + (scaling?" Arányosítva":"") + "<br/>";
 
         if (log.party_1.old || log.party_1.new) {
-          debuginfo += "<br><b>"
-          if (log.party_1.old) debuginfo += "2018: " + fromDataPlus.join(", ") + '<br/>';
-          if (log.party_1.new) debuginfo += "2022: " + toDataPlus.join(", ") + '<br/>';
-          debuginfo += "</b>";
+          debuginfo += "<br>";
+          if (log.party_1.old) debuginfo += "<b>2018:</b> " + fromDataPlus.join(", ") + '<br/>';
+          if (log.party_1.new) debuginfo += "<b>2022:</b> " + toDataPlus.join(", ") + '<br/>';
 
-          if (log.party_1.old) debuginfo += "2018-as szavazatszám: " + log.party_1.old + " fő (<b>" + (log.party_1.old_pp*100).toFixed(3) + "%</b>)<br />";
-          if (log.party_1.new) debuginfo += "2022-es szavazatszám: " + log.party_1.new.toFixed(0) + " fő (<b>" + (log.party_1.new_pp*100).toFixed(3) + "</b>%)<br/>";
+          if (log.party_1.old) debuginfo += "2018-as szavazatszám: <b>" + log.party_1.old + " fő</b> (<b>" + (log.party_1.old_pp*100).toFixed(3) + "%</b>)<br />";
+          if (log.party_1.new) debuginfo += "2022-es szavazatszám: <b>" + log.party_1.new.toFixed(0) + " fő</b> (<b>" + (log.party_1.new_pp*100).toFixed(3) + "</b>%)<br/>";
 
           if (log.party_1.old && log.party_1.new) {
-            debuginfo += "2018-2022 különbség: " + (log.party_1.gain*100-100).toFixed(3) + "%<br />";
-            debuginfo += "2022-2018 különbség: " + (log.party_1.loss*100-100).toFixed(3) + "%<br />";
-            debuginfo += "Szavazóbázis változása: " + log.party_1.win.toFixed(0) + " fő<br />";;
+            debuginfo += "2018-2022 különbség: <b>" + (log.party_1.gain*100-100).toFixed(3) + "%</b><br />";
+            debuginfo += "2022-2018 különbség: <b>" + (log.party_1.loss*100-100).toFixed(3) + "%</b><br />";
+            debuginfo += "Szavazóbázis változása: <b>" + log.party_1.win.toFixed(0) + " fő</b><br />";;
           }
         }
 
         if (log.party_2.old || log.party_2.new) {
-          debuginfo += "<br><b>"
-          if (log.party_2.old) debuginfo += "2018: " + fromDataMinus.join(", ") + '<br/>';
-          if (log.party_2.new) debuginfo += "2022: " + toDataMinus.join(", ") + '<br/>';
-          debuginfo += "</b>";
+          debuginfo += "<br>";
+          if (log.party_2.old) debuginfo += "<b>2018:</b> " + fromDataMinus.join(", ") + '<br/>';
+          if (log.party_2.new) debuginfo += "<b>2022:</b> " + toDataMinus.join(", ") + '<br/>';
 
-          if (log.party_2.old) debuginfo += "2018-as szavazatszám: " + log.party_2.old + " fő (<b>" + (log.party_2.old_pp*100).toFixed(3) + "%</b>)<br />";
-          if (log.party_2.old) debuginfo += "2022-es szavazatszám: " + log.party_2.new.toFixed(0) + " fő (<b>" + (log.party_2.new_pp*100).toFixed(3) + "%</b>)<br/>";
+          if (log.party_2.old) debuginfo += "2018-as szavazatszám: <b>" + log.party_2.old + " fő</b> (<b>" + (log.party_2.old_pp*100).toFixed(3) + "%</b>)<br />";
+          if (log.party_2.old) debuginfo += "2022-es szavazatszám: <b>" + log.party_2.new.toFixed(0) + " fő</b> (<b>" + (log.party_2.new_pp*100).toFixed(3) + "%</b>)<br/>";
 
           if (log.party_2.old && log.party_2.new) {
-            debuginfo += "2018-2022 különbség: " + (log.party_2.gain*100-100).toFixed(3) + "%<br />";
-            debuginfo += "2022-2018 különbség: " + (log.party_2.loss*100-100).toFixed(3) + "%<br />";
+            debuginfo += "2018-2022 különbség: <b>" + (log.party_2.gain*100-100).toFixed(3) + "%</b><br />";
+            debuginfo += "2022-2018 különbség: <b>" + (log.party_2.loss*100-100).toFixed(3) + "%</b><br />";
 
-            debuginfo += "Szavazóbázis változása: " + log.party_2.win.toFixed(0) + " fő<br />";
+            debuginfo += "Szavazóbázis változása: <b>" + log.party_2.win.toFixed(0) + " fő</b><br />";
           }
         }
 
